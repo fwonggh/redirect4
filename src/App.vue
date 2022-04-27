@@ -1,26 +1,24 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+function ifUp(url,onUp,onDown) {
+	// make random string
+	var RANDOM_DIGITS = 7; // this is sufficient. Don't do more than ~12.
+	var pow = Math.pow(10,RANDOM_DIGITS);
+	var randStr = String(Math.floor(Math.random()*pow)+pow).substr(1);
+	// create and load image
+	var img = new Image();
+	img.onload = onUp;
+	img.onerror = onDown;
+	img.src = url+"?"+randStr;
 }
+ 
+ifUp("https://xccl8.xyz/static/favicon.ico",
+	function(){
+		// do something
+		window.location.href="https://xccl8.xyz";
+	},
+	function(){
+		// do something else
+		window.location.href="https://xccl10.xyz";
+	}
+);
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
