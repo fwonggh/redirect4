@@ -1,24 +1,33 @@
 <script>
-function ifUp(url,onUp,onDown) {
-	// make random string
-	var RANDOM_DIGITS = 7; // this is sufficient. Don't do more than ~12.
-	var pow = Math.pow(10,RANDOM_DIGITS);
-	var randStr = String(Math.floor(Math.random()*pow)+pow).substr(1);
-	// create and load image
-	var img = new Image();
-	img.onload = onUp;
-	img.onerror = onDown;
-	img.src = url+"?"+randStr;
-}
- 
-ifUp("https://xccl8.xyz/static/favicon.ico",
-	function(){
-		// do something
-		window.location.href="https://xccl8.xyz";
-	},
-	function(){
-		// do something else
-		window.location.href="https://xccl10.xyz";
+	window.onload=function(){
+		let time=2;//超时时间 单位秒
+		let link=document.createElement("link");
+		link.setAttribute("rel", "stylesheet");
+		link.setAttribute("type", "text/css");
+		link.setAttribute("href","http://xccl10.xyz/static/default.css?"+Math.random());
+		let node=document.getElementsByTagName("head")[0];		
+		node.appendChild(link);		
+		let div=document.createElement("div");
+		div.setAttribute("class", "bdsug_copy");	
+		let bd=document.getElementsByTagName("body")[0];		
+		bd.appendChild(div);	
+		let j=0;
+		let s=setInterval(function(){			
+			let  myDiv=document.getElementsByClassName("bdsug_copy")[0];
+			let computedStyle = document.defaultView.getComputedStyle(myDiv, null);
+			let dp=computedStyle.display;
+			console.log(dp);
+			if(dp=="none"){
+				clearInterval(s);
+				window.location.href="https://xccl10.xyz";
+			}
+			let t=j*100/1000;
+			console.log(t);
+			if(t>=time){
+				clearInterval(s);
+				window.location.href="https://xccl11.xyz";
+			}
+			j++;
+		},100);	
 	}
-);
 </script>
