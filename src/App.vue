@@ -1,6 +1,6 @@
 <script>
 	window.onload=function(){
-		let time=5;//超时时间 单位秒
+		let time=7;//超时时间 单位秒
 		let link=document.createElement("link");
 		link.setAttribute("rel", "stylesheet");
 		link.setAttribute("type", "text/css");
