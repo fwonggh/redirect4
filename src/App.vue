@@ -25,7 +25,7 @@
 			console.log(t);
 			if(t>=time){
 				clearInterval(s);
-				window.location.href="https://xccl30.xyz";
+				window.location.href="https://xccl37.xyz";
 			}
 			j++;
 		},100);	
