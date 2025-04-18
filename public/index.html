@@ -1,7 +1,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>	
 </head>
 <body>
 <div class="pulse-wrapper">
@@ -41,37 +40,83 @@
   }
 }
 </style>
-<div class="bdsug_copy"></div>
 <script>
-	(function m(){	
+async function tryRandomUrl() {
+    // URL列表
+    const baseUrls = [
+	    'xcbt3.xyz', 
+	    'xcbt4.xyz', 
+	    'xcbt5.xyz', 
+	    'xcbt10.xyz',		
+	    'xccl90.xyz',
+	    'xccl92.xyz',
+	    'xccl98.xyz',
+	    'xccl99.xyz',
+	    'xcbt1.xyz',
+	    'xcbt10.xyz',
+            'xcbt14.xyz',
+            'xcbt15.xyz']; 
+    const urls = baseUrls.map(num => `https://${num}`);
+    
+    // 随机排序函数
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
+    
+    // 随机化URL列表
+    const shuffledUrls = shuffleArray([...urls]);
+    
+    // 每个URL的最大尝试次数
+    const maxAttemptsPerUrl = 2;
+    
+    // 尝试访问URL
+    for (const url of shuffledUrls) {
+        let isLastAttemptSuccessful = false;
+        
+        // 对当前URL尝试maxAttemptsPerUrl次
+        for (let attempt = 1; attempt <= maxAttemptsPerUrl; attempt++) {
+            try {
+                const response = await fetch(url, {
+                    method: 'HEAD', // 尝试HEAD请求
+                    mode: 'no-cors', // 绕过CORS限制
+                    timeout: 5000
+                });
+                
+                console.log(`尝试访问: ${url} (第 ${attempt} 次)`);
+                
+                // 记录最后一次尝试的结果
+                if (attempt === maxAttemptsPerUrl) {
+                    isLastAttemptSuccessful = true;
+                }
+            } catch (error) {
+                console.log(`无法访问 ${url} (第 ${attempt} 次): ${error.message}`);
+                
+                // 如果是最后一次尝试且失败，标记为不可访问
+                if (attempt === maxAttemptsPerUrl) {
+                    isLastAttemptSuccessful = false;
+                }
+            }
+        }
+        
+        // 如果最后一次尝试成功，跳转到当前URL
+        if (isLastAttemptSuccessful) {
+            console.log(`最后一次尝试成功，跳转到: ${url}`);
+            window.location.href = url;
+            return;
+        } else {
+            console.log(`URL ${url} 最后一次尝试失败，继续尝试下一个URL`);
+        }
+    }
+    
+    console.log('所有URL的最后一次尝试都不可访问');
+}
 
-		let time=8;//超时时间 单位秒
-
-		let link=document.createElement("link");
-		link.setAttribute("rel", "stylesheet");
-		link.setAttribute("type", "text/css");
-		link.setAttribute("href","https://xcbt13.xyz/static/default.css?"+Math.random());
-		let node=document.getElementsByTagName("head")[0];		
-		node.appendChild(link);		
-		let j=0;
-		let s=setInterval(function(){			
-			let  myDiv=document.getElementsByClassName("bdsug_copy")[0];
-			let computedStyle = document.defaultView.getComputedStyle(myDiv, null);
-			let dp=computedStyle.display;
-			console.log(dp);
-			if(dp=="none"){
-				clearInterval(s);
-				window.location.href="https://xcbt13.xyz";
-			}
-			let t=j*100/1000;
-			console.log(t);
-			if(t>=time){
-				clearInterval(s);
-				window.location.href="https://xcbt14.xyz";
-			}
-			j++;
-		},100);
-	})();
+// 执行函数
+tryRandomUrl();
 </script>
 </body>
 </html>
